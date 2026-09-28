@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Hospital Oliveira | Portal Corporativo</title>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --azul: #4fa9c8;
+      --azul-2: #67c1dc;
+      --azul-3: #dff5fb;
+      --azul-escuro: #246b83;
+
+      --cinza-900: #263840;
+      --cinza-700: #50656e;
+      --cinza-500: #7e929a;
+      --cinza-300: #cbd8dc;
+      --cinza-200: #e5edef;
+      --cinza-100: #f4f8f9;
+
+      --branco: #ffffff;
+      --verde: #50b98b;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      font-family: "Inter", "Segoe UI", Arial, sans-serif;
+      color: var(--cinza-900);
+      background: #edf5f7;
+      overflow: hidden;
+    }
+
+    .page {
+      width: 100vw;
+      height: 100vh;
+      min-width: 1100px;
+      position: relative;
+      display: flex;
+      overflow: hidden;
+
+      background:
+        radial-gradient(
+          circle at 5% 5%,
+          rgba(103, 193, 220, .25),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 95% 95%,
+          rgba(79, 169, 200, .18),
+          transparent 30%
+        ),
+        linear-gradient(
+          135deg,
+          #edf8fa 0%,
+          #f6f9fa 45%,
+          #e5f2f5 100%
+        );
+    }
+
+    .decor {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .decor.one {
+      width: 520px;
+      height: 520px;
+      left: -270px;
+      top: -230px;
+      border: 80px solid rgba(103, 193, 220, .07);
+    }
+
+    .decor.two {
+      width: 700px;
+      height: 700px;
+      right: -400px;
+      bottom: -400px;
+      border: 110px solid rgba(79, 169, 200, .06);
+    }
+
+    .decor.three {
+      width: 180px;
+      height: 180px;
+      right: 8%;
+      top: 8%;
+      background: rgba(255,255,255,.35);
+    }
+
+    .shell {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      z-index: 5;
+
+      display: grid;
+      grid-template-columns: 50% 50%;
+
+      overflow: hidden;
+      background: white;
+
+      animation: shellIn .7s ease;
+    }
+
+    .institution {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+
+      padding: 7vh 7vw;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      color: white;
+
+      background:
+        linear-gradient(
+          145deg,
+          #5fc0dd 0%,
+          #4ca7c5 52%,
+          #3e91b0 100%
+        );
+    }
+
+    .institution::before {
+      content: "";
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      top: -420px;
+      right: -300px;
+      border: 100px solid rgba(255,255,255,.055);
+    }
+
+    .institution::after {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      bottom: -330px;
+      left: -260px;
+      background: rgba(255,255,255,.055);
+    }
+
+    .brand {
+      position: relative;
+      z-index: 2;
+
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .brand-symbol {
+      width: 74px;
+      height: 74px;
+      position: relative;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      flex-shrink: 0;
+
+      border-radius: 21px;
+      background: rgba(255,255,255,.98);
+
+      box-shadow:
+        0 12px 28px rgba(23, 87, 106, .17);
+    }
+
+    .brand-symbol::before {
+      content: "";
+      width: 40px;
+      height: 12px;
+      position: absolute;
+      border-radius: 6px;
+      background: var(--azul);
+    }
+
+    .brand-symbol::after {
+      content: "";
+      width: 12px;
+      height: 40px;
+      position: absolute;
+      border-radius: 6px;
+      background: var(--azul);
+    }
+
+    .brand-name {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name .small {
+      font-size: 14px;
+      letter-spacing: 5px;
+      font-weight: 600;
+      opacity: .85;
+    }
+
+    .brand-name .large {
+      font-size: 36px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: .5px;
+    }
+
+    .institution-content {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+
+      padding: 10px 16px;
+      margin-bottom: 25px;
+
+      border-radius: 30px;
+      background: rgba(255,255,255,.13);
+      border: 1px solid rgba(255,255,255,.20);
+
+      font-size: 12px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #d9ffed;
+      box-shadow: 0 0 0 4px rgba(217,255,237,.10);
+    }
+
+    .institution-content h1 {
+      font-size: clamp(42px, 4vw, 62px);
+      line-height: 1.08;
+      letter-spacing: -1.5px;
+      margin-bottom: 26px;
+    }
+
+    .institution-content h1 span {
+      color: #eaffff;
+    }
+
+    .institution-content p {
+      max-width: 650px;
+      color: rgba(255,255,255,.84);
+      font-size: clamp(14px, 1.1vw, 17px);
+      line-height: 1.8;
+    }
+
+    .features {
+      position: relative;
+      z-index: 2;
+
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+
+      gap: 16px;
+      max-width: 760px;
+    }
+
+    .feature {
+      min-height: 125px;
+      padding: 20px;
+
+      border-radius: 17px;
+
+      background: rgba(255,255,255,.11);
+      border: 1px solid rgba(255,255,255,.15);
+
+      backdrop-filter: blur(8px);
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 13px;
+      border-radius: 11px;
+
+      background: rgba(255,255,255,.15);
+      font-size: 19px;
+    }
+
+    .feature strong {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .feature small {
+      color: rgba(255,255,255,.68);
+      font-size: 10px;
+      line-height: 1.4;
+    }
+
+    .login-area {
+      width: 100%;
+      height: 100%;
+
+      padding: 7vh 8vw;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      background: white;
+    }
+
+    .login-header {
+      margin-bottom: 36px;
+      max-width: 600px;
+    }
+
+    .login-header .eyebrow {
+      color: var(--azul);
+
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+
+      margin-bottom: 11px;
+    }
+
+    .login-header h2 {
+      color: var(--cinza-900);
+
+      font-size: clamp(29px, 2.3vw, 38px);
+      letter-spacing: -.7px;
+
+      margin-bottom: 10px;
+    }
+
+    .login-header p {
+      color: var(--cinza-500);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .field {
+      margin-bottom: 21px;
+      width: 100%;
+    }
+
+    .field-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      margin-bottom: 8px;
+    }
+
+    .field-label label {
+      color: var(--cinza-700);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .field-label span {
+      color: #a5b3b8;
+      font-size: 10px;
+    }
+
+    .input-wrapper {
+      width: 100%;
+      height: 60px;
+
+      display: flex;
+      align-items: center;
+
+      border-radius: 13px;
+
+      background: var(--cinza-100);
+      border: 1.5px solid var(--cinza-200);
+
+      transition: .2s;
+    }
+
+    .input-wrapper:focus-within {
+      background: white;
+      border-color: var(--azul-2);
+
+      box-shadow:
+        0 0 0 4px rgba(103,193,220,.11);
+    }
+
+    .input-icon {
+      width: 58px;
+      flex-shrink: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: var(--azul);
+      font-size: 18px;
+    }
+
+    .input-wrapper input {
+      width: 100%;
+      height: 100%;
+
+      border: none;
+      outline: none;
+      background: transparent;
+
+      color: var(--cinza-900);
+      font-size: 14px;
+
+      padding-right: 15px;
+    }
+
+    .input-wrapper input::placeholder {
+      color: #aebbc0;
+    }
+
+    .password-toggle {
+      border: none;
+      background: transparent;
+
+      color: #8da2a9;
+
+      cursor: pointer;
+
+      padding: 10px 17px;
+
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .password-toggle:hover {
+      color: var(--azul);
+    }
+
+    .options {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin: 2px 0 26px;
+    }
+
+    .remember {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      color: var(--cinza-500);
+      font-size: 12px;
+
+      cursor: pointer;
+    }
+
+    .remember input {
+      width: 15px;
+      height: 15px;
+      accent-color: var(--azul);
+    }
+
+    .restricted {
+      color: #a1afb4;
+      font-size: 10px;
+    }
+
+    .login-button {
+      width: 100%;
+      height: 60px;
+
+      border: none;
+      border-radius: 13px;
+
+      color: white;
+
+      background:
+        linear-gradient(
+          135deg,
+          #69c5df,
+          #4aa8c7
+        );
+
+      font-size: 15px;
+      font-weight: 800;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 10px 24px rgba(74,168,199,.24);
+
+      transition: .25s;
+    }
+
+    .login-button:hover {
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 15px 30px rgba(74,168,199,.31);
+    }
+
+    .login-button:disabled {
+      opacity: .7;
+      cursor: wait;
+    }
+
+    .arrow {
+      margin-left: 8px;
+      font-size: 18px;
+    }
+
+    #mensagem {
+      min-height: 20px;
+
+      text-align: center;
+
+      margin-top: 13px;
+
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .erro {
+      color: #df6f76;
+    }
+
+    .sucesso {
+      color: var(--verde);
+    }
+
+    .security {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      margin-top: 25px;
+      padding-top: 17px;
+
+      border-top: 1px solid #edf1f2;
+
+      color: #9aa9ae;
+      font-size: 10px;
+    }
+
+    .security-icon {
+      width: 25px;
+      height: 25px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 8px;
+
+      background: var(--azul-3);
+      color: var(--azul);
+    }
+
+    .system-status {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      gap: 6px;
+
+      margin-top: 11px;
+
+      color: #a6b3b7;
+      font-size: 9px;
+    }
+
+    .system-status i {
+      width: 6px;
+      height: 6px;
+
+      border-radius: 50%;
+
+      background: #55bf91;
+      box-shadow: 0 0 0 3px rgba(85,191,145,.10);
+    }
+
+    .datetime {
+      text-align: center;
+      margin-top: 17px;
+
+      color: #aeb9bd;
+      font-size: 9px;
+    }
+
+    @keyframes shellIn {
+
+      from {
+        opacity: 0;
+        transform: scale(.99);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+  <div class="page">
+
+    <div class="decor one"></div>
+    <div class="decor two"></div>
+    <div class="decor three"></div>
+
+    <main class="shell">
+
+      <!-- LADO ESQUERDO -->
+
+      <section class="institution">
+
+        <div class="brand">
+
+          <div class="brand-symbol"></div>
+
+          <div class="brand-name">
+
+            <span class="small">
+              HOSPITAL
+            </span>
+
+            <span class="large">
+              OLIVEIRA
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="institution-content">
+
+          <div class="status">
+
+            <span class="status-dot"></span>
+
+            Sistema Hospitalar Online
+
+          </div>
+
+
+          <h1>
+
+            Tecnologia para
+            <span>cuidar melhor.</span>
+
+          </h1>
+
+
+          <p>
+
+            Portal interno do Hospital Oliveira para
+            profissionais autorizados. Tenha acesso
+            rápido e seguro às ferramentas necessárias
+            para o atendimento e gestão hospitalar.
+
+          </p>
+
+        </div>
+
+
+        <div class="features">
+
+          <div class="feature">
+
+            <div class="feature-icon">
+              🩺
+            </div>
+
+            <strong>
+              Atendimento
+            </strong>
+
+            <small>
+              Gestão dos atendimentos hospitalares.
+            </small>
+
+          </div>
+
+
+          <div class="feature">
+
+            <div class="feature-icon">
+              🛡️
+            </div>
+
+            <strong>
+              Segurança
+            </strong>
+
+            <small>
+              Acesso controlado e protegido.
+            </small>
+
+          </div>
+
+
+          <div class="feature">
+
+            <div class="feature-icon">
+              ❤️
+            </div>
+
+            <strong>
+              Humanização
+            </strong>
+
+            <small>
+              Pessoas sempre em primeiro lugar.
+            </small>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- LADO DIREITO -->
+
+      <section class="login-area">
+
+        <div class="login-header">
+
+          <div class="eyebrow">
+            Portal do profissional
+          </div>
+
+          <h2>
+            Acesso ao sistema
+          </h2>
+
+          <p>
+            Entre com suas credenciais para acessar
+            o ambiente hospitalar.
+          </p>
+
+        </div>
+
+
+        <!-- USUÁRIO -->
+
+        <div class="field">
+
+          <div class="field-label">
+
+            <label for="usuario">
+              Usuário
+            </label>
+
+            <span>
+              Obrigatório
+            </span>
+
+          </div>
+
+
+          <div class="input-wrapper">
+
+            <div class="input-icon">
+              👤
+            </div>
+
+            <input
+              id="usuario"
+              type="text"
+              placeholder="Digite seu usuário"
+              autocomplete="username"
+            >
+
+          </div>
+
+        </div>
+
+
+        <!-- SENHA -->
+
+        <div class="field">
+
+          <div class="field-label">
+
+            <label for="senha">
+              Senha
+            </label>
+
+            <span>
+              Obrigatório
+            </span>
+
+          </div>
+
+
+          <div class="input-wrapper">
+
+            <div class="input-icon">
+              🔒
+            </div>
+
+            <input
+              id="senha"
+              type="password"
+              placeholder="Digite sua senha"
+              autocomplete="current-password"
+            >
+
+            <button
+              type="button"
+              class="password-toggle"
+              onclick="mostrarSenha()"
+              id="toggleSenha"
+            >
+              Mostrar
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="options">
+
+          <label class="remember">
+
+            <input
+              type="checkbox"
+              id="lembrar"
+            >
+
+            Lembrar usuário
+
+          </label>
+
+
+          <span class="restricted">
+            🔐 Acesso restrito
+          </span>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="login-button"
+          onclick="login()"
+          id="btnLogin"
+        >
+
+          Entrar
+
+          <span class="arrow">
+            →
+          </span>
+
+        </button>
+
+
+        <div id="mensagem"></div>
+
+
+        <div class="security">
+
+          <div class="security-icon">
+            🔐
+          </div>
+
+          Ambiente seguro e protegido
+
+        </div>
+
+
+        <div class="system-status">
+
+          <i></i>
+
+          Sistema operacional
+
+        </div>
+
+
+        <div
+          class="datetime"
+          id="datetime"
+        ></div>
+
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <script>
+
+    function login() {
+
+      const usuario =
+        document.getElementById("usuario").value.trim();
+
+      const senha =
+        document.getElementById("senha").value;
+
+      const mensagem =
+        document.getElementById("mensagem");
+
+      const botao =
+        document.getElementById("btnLogin");
+
+
+      if (!usuario || !senha) {
+
+        mensagem.innerText =
+          "⚠ Preencha usuário e senha.";
+
+        mensagem.className = "erro";
+
+        return;
+      }
+
+
+      botao.disabled = true;
+
+      botao.innerHTML =
+        'Verificando <span class="arrow">•••</span>';
+
+      mensagem.innerText = "";
+
+
+      fetch("/login", {
+
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+          usuario: usuario,
+          senha: senha
+        })
+
+      })
+
+      .then(response => {
+
+        if (!response.ok) {
+
+          throw new Error("Login inválido");
+
+        }
+
+        return response.json();
+
+      })
+
+      .then(data => {
+
+        if (data.tipo === "triagem") {
+
+          window.location.href =
+            "triagem.html";
+
+          return;
+        }
+
+
+        if (data.tipo === "medico") {
+
+          window.location.href =
+            "medico.html";
+
+          return;
+        }
+
+
+        if (data.tipo === "atendimento") {
+
+          window.location.href =
+            "atendimento.html";
+
+          return;
+        }
+
+
+        mensagem.innerText =
+          "✕ Usuário ou senha inválidos.";
+
+        mensagem.className =
+          "erro";
+
+        restaurarBotao();
+
+      })
+
+      .catch(error => {
+
+        console.error(error);
+
+        mensagem.innerText =
+          "✕ Usuário ou senha inválidos.";
+
+        mensagem.className =
+          "erro";
+
+        restaurarBotao();
+
+      });
+
+    }
+
+
+    function restaurarBotao() {
+
+      const botao =
+        document.getElementById("btnLogin");
+
+      botao.disabled = false;
+
+      botao.innerHTML =
+        'Entrar <span class="arrow">→</span>';
+
+    }
+
+
+    function mostrarSenha() {
+
+      const senha =
+        document.getElementById("senha");
+
+      const botao =
+        document.getElementById("toggleSenha");
+
+
+      if (senha.type === "password") {
+
+        senha.type = "text";
+
+        botao.innerText = "Ocultar";
+
+      } else {
+
+        senha.type = "password";
+
+        botao.innerText = "Mostrar";
+
+      }
+
+    }
+
+
+    document
+      .getElementById("senha")
+      .addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter") {
+
+          login();
+
+        }
+
+      });
+
+
+    function atualizarDataHora() {
+
+      const agora = new Date();
+
+      const data =
+        agora.toLocaleDateString("pt-BR", {
+          weekday: "long",
+          day: "2-digit",
+          month: "long",
+          year: "numeric"
+        });
+
+      const hora =
+        agora.toLocaleTimeString("pt-BR", {
+          hour: "2-digit",
+          minute: "2-digit"
+        });
+
+      document
+        .getElementById("datetime")
+        .innerText =
+          data.charAt(0).toUpperCase() +
+          data.slice(1) +
+          " • " +
+          hora;
+
+    }
+
+
+    atualizarDataHora();
+
+    setInterval(
+      atualizarDataHora,
+      1000
+    );
+
+  </script>
+
+</body>
+
+</html>

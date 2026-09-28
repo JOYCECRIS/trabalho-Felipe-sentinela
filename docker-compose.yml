@@ -1,0 +1,16 @@
+services:
+ 
+  app:
+    build: .
+    container_name: sentinela-acesso
+    ports:
+      - "3010:3002"
+    volumes:
+      - dados_sentinela:/app/backend/data
+ 
+volumes:
+ 
+  dados_sentinela:
+
+
+
